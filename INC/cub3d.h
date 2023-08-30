@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/08/30 16:25:13 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:41:50 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ typedef struct s_map {
     char    *tex_E;
     char    *tex_O;
     char    **map;
-    int     cols;
-    int     rows;
 }       t_map;
 
 typedef struct s_player {

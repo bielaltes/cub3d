@@ -15,5 +15,6 @@
 int main( void )
 {
     t_game game;
+    
     write(1, "hola\n", 5);
 }

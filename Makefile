@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/08/30 16:16:13 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/08/30 16:43:24 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,8 +72,8 @@ clean:
 	$(RM) $(OBJ_DIR)
 
 fclean: clean
-	@$(MAKE) fclean -C $(LIB_M) --no-print-directory
-	@$(MAKE) clean -C $(LIB_L) --no-print-directory
+	@$(MAKE) fclean -C $(LIB_L) --no-print-directory
+	@$(MAKE) clean -C $(LIB_M) --no-print-directory
 	$(RM) $(NAME)
 
 re:
