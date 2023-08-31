@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/08/30 17:23:57 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:30:46 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@
 # define BOTH 3
 
 typedef struct s_color {
-    char r;
-    char g;
-    char b;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
 }       t_color;
 
 typedef struct s_image {
@@ -66,6 +66,11 @@ typedef struct s_game {
 }       t_game;
 
 //PARSE
+int         exit_parse(char *str);
+void        free_split(char **split);
+int	        ft_strlen_n(const char *str);
+int         parse(int argc, char **argv, t_game *game);
+int	        ft_ptrlen(char **str);
 
 
 #endif

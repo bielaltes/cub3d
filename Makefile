@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/08/30 16:43:24 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/08/31 22:28:34 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,27 +17,42 @@ LIB_DIR		= LIB
 MKFL		= Makefile
 SRC_DIR		= SRC/
 OBJ_DIR		= OBJ/
-MLX_DIR		= LIB/minilibx_opengl_20191021
-MLX			= libmlx.a
-MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
-INC_MLX		= mlx.h
 
+MLX			= libmlx.a
+
+INC_MLX		= mlx.h
 
 # ----Libraryes----
 PW_HEADER	= $(INC_DIR)/cub3d.h
 LIB			= $(LIB_DIR)/libft/libft.a
 LIB_L 		= $(LIB_DIR)/libft/
-LIB_M 		= $(LIB_DIR)/minilibx_opengl_20191021/
+
 # =============
+
+ifeq ($(shell uname -s),Linux)
+	MLX_DIR		= LIB/minilibx_linux
+	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	MLX_FLAGS	= -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -I$(MLX_DIR) -lXext -lX11 -lm
+	MLX_CC		= -I/usr/include -I$(MLX_DIR)
+	LIB_M 		= $(LIB_DIR)/minilibx_linux/
+else
+	MLX_DIR		= LIB/minilibx_opengl_20191021
+	MLX_FLAGS	= -L$(MLX_DIR) -lmlx -framework OpenGL -framework AppKit
+	LIB_M 		= $(LIB_DIR)/minilibx_opengl_20191021/
+endif
+
 
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror
 LIBC = ar -rcs
+CC = clang
 # =============
 
-SRC_L	=	main.c
+SRC_L	=	main.c				\
+			PARSE/parse.c		\
+			PARSE/utils.c
 
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
@@ -55,14 +70,14 @@ all:
 $(OBJ_DIR)%.o: %.c $(MKFL)
 	@$(MP) $(dir $@)
 	@printf "                       \rCompiling $<"
-	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) -c $< -o $@
+	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) $(MLX_CC) -c $< -o $@
 
 $(NAME):: $(OBJ) $(LIB)
 	@printf "\nLinking minishell\n"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIB) $(MLX_FLAGS) -o $(NAME)
+	@$(CC)  $(CFLAGS) $(OBJ) $(LIB) $(MLX_FLAGS) -o $(NAME)
 
 $(NAME)::
-	@echo "Hello, Minishell already compiled 😇"
+	@echo "Hello, cub3d already compiled "
 
 -include $(DEP)
 

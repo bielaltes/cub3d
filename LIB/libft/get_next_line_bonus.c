@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 13:29:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 12:46:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/08/31 18:03:41 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*read_from_file(int fd, char *accumulative)
 	if (!buffer)
 		return (clean(accumulative));
 	aux = BUFFER_SIZE;
-	while (aux == BUFFER_SIZE && ft_strchr(accumulative, '\n') == NULL)
+	while (aux == BUFFER_SIZE && ft_strchr_gnl(accumulative, '\n') == NULL)
 	{
 		aux = read(fd, buffer, BUFFER_SIZE);
 		if (aux == -1)
@@ -37,7 +37,7 @@ char	*read_from_file(int fd, char *accumulative)
 		}
 		buffer[aux] = '\0';
 		if (aux != 0)
-			accumulative = ft_strjoin(accumulative, buffer, NO);
+			accumulative = ft_strjoin_gnl(accumulative, buffer);
 		if (!accumulative)
 			aux = 0;
 	}
@@ -49,7 +49,7 @@ char	*next_acc(char *accumulative)
 {
 	char	*aux;
 
-	aux = ft_strchr(accumulative, '\n');
+	aux = ft_strchr_gnl(accumulative, '\n');
 	if (aux != NULL && *aux == '\n')
 	{
 		++aux;
@@ -85,7 +85,7 @@ char	*read_from_acc(char *s1)
 	new[i] = '\0';
 	if (*s1 == '\n')
 	{
-		new = ft_strjoin(new, "\n", NO);
+		new = ft_strjoin_gnl(new, "\n");
 		if (!new)
 			return (NULL);
 		new[i + 1] = '\0';
@@ -117,33 +117,3 @@ char	*get_next_line(int fd)
 	accumulative[fd] = next_acc(accumulative[fd]);
 	return (aux_line);
 }
-
-/*int	main(void)
-{
-	char	*line;
-	int		i;
-	int		fd1;
-	int		fd2;
-	int		fd3;
-	fd1 = open("only_nl.txt", O_RDONLY);
-	fd2 = open("test2.txt", O_RDONLY);
-	fd3 = open("test3.txt", O_RDONLY);
-	i = 1;
-	while (i <= 5)
-	{
-		line = get_next_line(fd1);
-		printf("line [%02d]: %s\n", i, line);
-		free(line);
-		line = get_next_line(fd2);
-		printf("line [%02d]: %s\n", i, line);
-		free(line);
-		line = get_next_line(fd3);
-		printf("line [%02d]: %s\n", i, line);
-		free(line);
-		i++;
-	}
-	close(fd1);
-	close(fd2);
-	close(fd3);
-	return (0);
-}*/
