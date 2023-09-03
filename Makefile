@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/08/30 16:16:13 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/08/30 17:13:49 by jareste-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ CFLAGS =  -g -Wall -Wextra -Werror -fsanitize=address
 LIBC = ar -rcs
 # =============
 
-SRC_L	=	main.c
+SRC_L	=	MAP/prov_main.c
 
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
