@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prov_main.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 16:41:00 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:48:05 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,7 @@ void  print_2d(t_image map, int color1, int color2)
 ////////////////print map 2D
 
 
-int	main(void)
+/*int	main(void)
 {
   t_game game;
 	t_image	map;
@@ -316,4 +316,4 @@ print_player(game, 0x0000ffff);
 	mlx_hook(map.win_ptr, 17, 0, close_win, &map);
 	mlx_loop(map.win_addr);
   return (0);
-}
+}*/

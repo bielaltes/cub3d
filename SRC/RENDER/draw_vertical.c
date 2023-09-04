@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 15:00:57 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 15:49:22 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:50:07 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ int draw_vertical(t_game *game, t_image *img, t_image *tex, int height, int x, i
 	{
 		my_pixel_put(img, x, i, my_pixel_get(tex, x_tex, (int)pos_img));
 		pos_img += step;
-		//printf("%f\n", pos_img);
 		++i;
 	}
 	while (i < HEIGHT)

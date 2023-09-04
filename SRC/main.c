@@ -6,13 +6,13 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:51:39 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 16:10:21 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:50:29 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int argc, char **argv)
+/*int main(int argc, char **argv)
 {
 	t_game game;
 	parse(argc, argv, &game);
@@ -38,4 +38,4 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win,
 		game.mlx.img.img, 0, 0);
 	mlx_loop(game.mlx.mlx);
-}
+}*/
