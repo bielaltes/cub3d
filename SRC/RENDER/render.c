@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:02:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 20:03:43 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 20:42:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,9 +144,15 @@ int render(t_game *game)
 		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
 		else          perpWallDist = (sideDistY - deltaDistY);
 		//Calculate height of line to draw on screen
-		printf("ppwd:: %f\n", perpWallDist);
 		int lineHeight = (int)(HEIGHT / perpWallDist);
-		draw_vertical(game, &game->mlx.img, &game->mlx.textures[1], lineHeight, x, x%64);
+
+		double wallX;
+		if (side == 0)
+			wallX = pl.locY + perpWallDist * rayDirY;
+		else 
+		    wallX = pl.locX + perpWallDist * rayDirX;
+		wallX = wallX - (int)wallX;
+		draw_vertical(game, &game->mlx.img, &game->mlx.textures[1], lineHeight, x, wallX * 64);
 	}
 	print_2d(game, 0x00ff0000, 0x0000FF00);
 	print_player(*game, 0x000af56F);
