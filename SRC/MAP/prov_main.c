@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 16:57:40 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:04:03 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ float  ray_colision(t_game *game, float angle)
     rx = (mapWidth - game->player.locX) * 16;
     ry = (game->player.locY) * 16;
     for (int x = 0; x<rx;x++)
-      my_mlx_pixel_put(&game->map, x + (game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img, x + (game->player.locX*16) + 4 , \
       4 + game->player.locY*16, 0x00ffffff); 
   
     for (int x = 0; x<ry;x++)
-      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
       4 + game->player.locY*16 - x, 0x00ffffff);
   }
   if (angle <= 180 && angle > 90)
@@ -83,11 +83,11 @@ float  ray_colision(t_game *game, float angle)
     ry = (game->player.locY) * 16;
     
     for (int x = 0; x<rx;x++)
-      my_mlx_pixel_put(&game->map, -x + (game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img, -x + (game->player.locX*16) + 4 , \
        4 + game->player.locY*16, 0x00ffffff); 
   
     for (int x = 0; x<ry;x++)
-      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
       4 + game->player.locY*16 - x, 0x00ffffff);
 
   }
@@ -96,11 +96,11 @@ float  ray_colision(t_game *game, float angle)
     rx = (game->player.locX) * 16;
     ry = (mapHeight - game->player.locY) * 16;
     for (int x = 0; x<rx;x++)
-      my_mlx_pixel_put(&game->map, -x + (game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img, -x + (game->player.locX*16) + 4 , \
       4 + game->player.locY*16, 0x00ffffff); 
   
     for (int x = 0; x<ry;x++)
-      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
       4 + game->player.locY*16 + x, 0x00ffffff);
   }
   if (angle <= 360 && angle > 270)
@@ -108,11 +108,11 @@ float  ray_colision(t_game *game, float angle)
     rx = (mapWidth - game->player.locX) * 16 ;
     ry = (mapHeight - game->player.locY) * 16;
     for (int x = 0; x<rx;x++)
-      my_mlx_pixel_put(&game->map, +x + (game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img, +x + (game->player.locX*16) + 4 , \
       4 + game->player.locY*16, 0x00ffffff); 
   
     for (int x = 0; x<ry;x++)
-      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
       4 + game->player.locY*16 + x, 0x00ffffff);
   }
   /////////printing rx && ry (distance to walls)
@@ -147,14 +147,7 @@ void  print_rays(t_game *game)
     angle = FixAng(angle);
     ray_distance = ray_colision(game, angle);
     // printf("distance::::::::%f,\n", ray_distance);
-    for (int j = 0; j<ray_distance;j++)
-    {
-      // printf("map_pos:::::%f,%f\n", ((j *cos(radang(angle)) + game->player.locX*16)/16),(((game->player.locY*16) - j * sin(radang(angle)))/16));
-      if (worldMap[(int)((j *cos(radang(angle)) + game->player.locX*16)/16)][(int)(((game->player.locY*16) - j * cos(radang(90 - angle)))/16)] > 0)
-        break;
-      my_mlx_pixel_put(&game->map, j *cos(radang(angle)) \
-      + (game->player.locX*16) + 4 , 4 + game->player.locY*16 - j * sin(radang(angle)) , 0x00000000); 
-    }
+
      
   }
 }
@@ -205,14 +198,6 @@ int print_win(int key, t_game *game)
   return (0);
 }
 
-void  my_mlx_pixel_put(t_image *data, int x, int y, int color)
-{
-  char  *dst;
-
-  dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-  *(unsigned int*)dst = color;
-}
-
 ////////////////print player 2D
 void  print_player(t_game game, int color)
 {
@@ -220,13 +205,13 @@ void  print_player(t_game game, int color)
   {
     for(int k=0; k<8;k++)
     {
-      my_mlx_pixel_put(&game.map, k + (game.player.locX*16), j + \
+      my_pixel_put(game.mlx.img.img, k + (game.player.locX*16), j + \
       (game.player.locY*16), color);
     }
   }
   for(int x=0; x<16; x++)
   {
-    my_mlx_pixel_put(&game.map, x *cos(game.player.angle * M_PI/180) \
+    my_pixel_put(game.mlx.img.img, x *cos(game.player.angle * M_PI/180) \
     + (game.player.locX*16) + 4 , 4 + game.player.locY*16 - x * sin(game.player.angle * M_PI/180) , color); 
   }
 }
@@ -262,7 +247,7 @@ void  print_2d(t_image map, int color1, int color2)
       {
         for(int k=0; k<16;k++)
         {
-          my_mlx_pixel_put(&map, k + (x*16), j + (y*16), color);
+          my_pixel_put(&map, k + (x*16), j + (y*16), color);
         }
       }
     }
@@ -296,7 +281,7 @@ int	main(void)
 ////////////////print map 2D
 print_2d(map, 0x00af00af, 0x0000af00);
 ////////////////print map 2D
-  game.map = map;
+  game.mlx.img = map;
 print_rays(&game);
 
 ////////////////print player 2D
