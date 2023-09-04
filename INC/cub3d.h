@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 16:45:12 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:07:30 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,7 @@ int			my_pixel_get(t_image *img, int x, int y);
 //RENDER
 
 int draw_vertical(t_game *game, t_image *img, t_image *tex, int height, int x, int x_tex);
-
 float FixAng(float a);
-void  my_mlx_pixel_put(t_image *data, int x, int y, int color);
-
-
+void  print_rays(t_game *game);
 
 #endif

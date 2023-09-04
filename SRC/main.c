@@ -6,13 +6,13 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:51:39 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 16:50:29 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:15:53 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*int main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	t_game game;
 	parse(argc, argv, &game);
@@ -31,11 +31,15 @@
 		printf("%s\n", game.map.map[i]);
 		++i;
 	}
+	/*
 	for (int i = 0; i < WIDTH; ++i)
 	{
 		draw_vertical(&game, &game.mlx.img, &game.mlx.textures[1], 100, i, i%64);
 	}
 	mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win,
 		game.mlx.img.img, 0, 0);
+	*/
+
+	print_rays(&game);
 	mlx_loop(game.mlx.mlx);
-}*/
+}

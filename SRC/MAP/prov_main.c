@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 17:04:03 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 17:20:25 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,15 +140,19 @@ void  print_rays(t_game *game)
    //Quiero imprimir rayos desde el POV del jugador y +-30.
   float angle;
   float ray_distance;
+  float x;
 
-  for (float x = 0; x < 60; x += 0.055)
+  x = 0;
+  for (int i = 0; i < WIDTH; i++)
   {
+    printf("%d\n", i);
     angle = game->player.angle - 30 + x; 
     angle = FixAng(angle);
     ray_distance = ray_colision(game, angle);
-    // printf("distance::::::::%f,\n", ray_distance);
+    //printf("distance::::::::%f,\n", ray_distance);
+    draw_vertical(game, &game->mlx.img, &game->mlx.textures[0], ray_distance, i, i%64);
 
-     
+    x+= 0.55;
   }
 }
 ////////first raycast tests
@@ -256,7 +260,7 @@ void  print_2d(t_image map, int color1, int color2)
 ////////////////print map 2D
 
 
-int	main(void)
+/*int	main(void)
 {
   t_game game;
 	t_image	map;
@@ -294,4 +298,4 @@ print_player(game, 0x0000ffff);
   // mlx_hook(map.win_ptr, 2, 0, print_angle, &game);
 	mlx_loop(game.mlx.mlx);
   return (0);
-}
+}*/
