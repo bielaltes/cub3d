@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 17:07:30 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:12:47 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,10 @@ typedef struct s_player {
 	float locX;
 	float locY;
 	float angle;
+	float dirX;
+	float dirY;
+	float planeX;
+	float planeY;
 }       t_player;
 
 typedef struct s_mlx
@@ -103,6 +107,10 @@ int         parse(int argc, char **argv, t_game *game);
 int	        ft_ptrlen(char **str);
 int 		init(t_game *game);
 
+//HOOKS
+
+int			key_hook(int key_code, t_game *game);
+
 
 //UTILS
 int 		c2int(t_color *c);
@@ -115,5 +123,7 @@ int			my_pixel_get(t_image *img, int x, int y);
 int draw_vertical(t_game *game, t_image *img, t_image *tex, int height, int x, int x_tex);
 float FixAng(float a);
 void  print_rays(t_game *game);
+int print_win(int key, t_game *game);
+int render(t_game *game);
 
 #endif

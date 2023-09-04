@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 17:20:25 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 19:41:37 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int worldMap[mapWidth][mapHeight]=
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
 
-void  print_2d(t_image map, int color1, int color2);
 void  print_player(t_game game, int color);
 
 float radang(float angle)
@@ -69,51 +68,23 @@ float  ray_colision(t_game *game, float angle)
   {
     rx = (mapWidth - game->player.locX) * 16;
     ry = (game->player.locY) * 16;
-    for (int x = 0; x<rx;x++)
-      my_pixel_put(game->mlx.img.img, x + (game->player.locX*16) + 4 , \
-      4 + game->player.locY*16, 0x00ffffff); 
-  
-    for (int x = 0; x<ry;x++)
-      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
-      4 + game->player.locY*16 - x, 0x00ffffff);
+
   }
   if (angle <= 180 && angle > 90)
   {
     rx = (game->player.locX) * 16;
     ry = (game->player.locY) * 16;
-    
-    for (int x = 0; x<rx;x++)
-      my_pixel_put(game->mlx.img.img, -x + (game->player.locX*16) + 4 , \
-       4 + game->player.locY*16, 0x00ffffff); 
-  
-    for (int x = 0; x<ry;x++)
-      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
-      4 + game->player.locY*16 - x, 0x00ffffff);
 
   }
   if (angle <= 270 && angle > 180)
   {
     rx = (game->player.locX) * 16;
     ry = (mapHeight - game->player.locY) * 16;
-    for (int x = 0; x<rx;x++)
-      my_pixel_put(game->mlx.img.img, -x + (game->player.locX*16) + 4 , \
-      4 + game->player.locY*16, 0x00ffffff); 
-  
-    for (int x = 0; x<ry;x++)
-      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
-      4 + game->player.locY*16 + x, 0x00ffffff);
   }
   if (angle <= 360 && angle > 270)
   {
     rx = (mapWidth - game->player.locX) * 16 ;
     ry = (mapHeight - game->player.locY) * 16;
-    for (int x = 0; x<rx;x++)
-      my_pixel_put(game->mlx.img.img, +x + (game->player.locX*16) + 4 , \
-      4 + game->player.locY*16, 0x00ffffff); 
-  
-    for (int x = 0; x<ry;x++)
-      my_pixel_put(game->mlx.img.img,(game->player.locX*16) + 4 , \
-      4 + game->player.locY*16 + x, 0x00ffffff);
   }
   /////////printing rx && ry (distance to walls)
   // rx -= 16;
@@ -150,10 +121,12 @@ void  print_rays(t_game *game)
     angle = FixAng(angle);
     ray_distance = ray_colision(game, angle);
     //printf("distance::::::::%f,\n", ray_distance);
-    draw_vertical(game, &game->mlx.img, &game->mlx.textures[0], ray_distance, i, i%64);
+    draw_vertical(game, &game->mlx.img, &game->mlx.textures[0], 10000/ray_distance, i, i%64);
 
-    x+= 0.55;
+    x+= 0.3125;
   }
+  mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win,
+		game->mlx.img.img, 0, 0);
 }
 ////////first raycast tests
 
@@ -193,70 +166,26 @@ int print_win(int key, t_game *game)
       game->player.angle -= 5;
     game->player.angle = FixAng(game->player.angle);
     mlx_clear_window(game->mlx.mlx, game->mlx.mlx_win);
-    print_2d(game->mlx.img, 0x00af00af, 0x0000af00);
     print_rays(game);
-    print_player(*game, 0x0000ffff);
-    mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win,
-		game->mlx.img.img, 0, 0);
   }
   return (0);
 }
 
 ////////////////print player 2D
-void  print_player(t_game game, int color)
-{
-  for(int j=0; j<8;j++)
-  {
-    for(int k=0; k<8;k++)
-    {
-      my_pixel_put(game.mlx.img.img, k + (game.player.locX*16), j + \
-      (game.player.locY*16), color);
-    }
-  }
-  for(int x=0; x<16; x++)
-  {
-    my_pixel_put(game.mlx.img.img, x *cos(game.player.angle * M_PI/180) \
-    + (game.player.locX*16) + 4 , 4 + game.player.locY*16 - x * sin(game.player.angle * M_PI/180) , color); 
-  }
-}
+
 ////////////////print player 2D
 
-float FixAng(float a) //funcion importante para no pasarnos del angulo que nos interesa.
-{ 
-     if(a > 359)
-        a -= 360;
-     if(a < 0)
-        a += 360;
-     return (a);
-}
+// float FixAng(float a) //funcion importante para no pasarnos del angulo que nos interesa.
+// { 
+//      if(a > 359)
+//         a -= 360;
+//      if(a < 0)
+//         a += 360;
+//      return (a);
+// }
 
 ////////////////print map 2D
-void  print_2d(t_image map, int color1, int color2)
-{
-  int color;
-  
-  for(int y=0;y<mapHeight;y++)
-  {
-    for(int x=0;x<mapWidth;x++)
-    {
-      if(worldMap[y][x]<1)
-      { 
-          color = color1;
-      }
-      else
-      { 
-          color = color2;
-      }
-      for(int j=0; j<16;j++)
-      {
-        for(int k=0; k<16;k++)
-        {
-          my_pixel_put(&map, k + (x*16), j + (y*16), color);
-        }
-      }
-    }
-  }
-}
+
 ////////////////print map 2D
 
 

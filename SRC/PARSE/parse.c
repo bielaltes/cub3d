@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 12:03:46 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:06:53 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,13 +163,33 @@ int setup_pl(t_player *player, char coord, int col, int row)
 	player->locX = col;
 	player->locY = row;
 	if (coord == 'E')
-		player->angle = 0;
+	{
+		player->dirX = 1;
+		player->dirY = 0;
+		player->planeX = 0;
+		player->planeY = 0.66;
+	}
 	else if (coord == 'N')
-		player->angle = 90;
+	{
+		player->dirX = 0;
+		player->dirY = 1;
+		player->planeX = 0.66;
+		player->planeY = 0;
+	}
 	else if (coord == 'W')
-		player->angle = 180;
+	{
+		player->dirX = -1;
+		player->dirY = 0;
+		player->planeX = 0;
+		player->planeY = 0.66;
+	}
 	else if (coord == 'S')
-		player->angle = 270;
+	{
+		player->dirX = 0;
+		player->dirY = -1;
+		player->planeX = 0.66;
+		player->planeY = 0;
+	}
 	else
 		return (exit_parse("Error assigning the orentation"));
 	return (SUCCESS);
