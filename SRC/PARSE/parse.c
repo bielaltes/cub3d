@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 09:09:41 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:03:46 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,6 @@ int parse(int argc, char **argv, t_game *game)
 	if (fd < 0)
 		exit_parse("Cannot open map file");
 	read_textures_colours(fd, game);
-	//check_textures(&game->map);
 	read_map(fd, game);
 	check_map(game->map.map, &game->player);
 	return (SUCCESS);

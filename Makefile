@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+         #
+#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/08/31 22:28:34 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/09/04 15:19:41 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,9 +50,13 @@ LIBC = ar -rcs
 CC = clang
 # =============
 
-SRC_L	=	main.c				\
-			PARSE/parse.c		\
-			PARSE/utils.c
+SRC_L	=	main.c					\
+			PARSE/parse.c			\
+			PARSE/utils.c			\
+			PARSE/init.c			\
+			HOOKS/hooks.c			\
+			RENDER/draw_vertical.c	\
+			UTILS/pixel.c
 
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))

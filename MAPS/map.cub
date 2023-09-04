@@ -1,7 +1,7 @@
-NO srcs/imgs/wall_text/a.xpm
-SO srcs/imgs/wall_text/b.xpm
-EA srcs/imgs/wall_text/c.xpm
-WE srcs/imgs/wall_text/c.xpm
+NO TEX/prova.xpm
+SO TEX/hitler.xpm
+EA TEX/protoblue.xpm
+WE TEX/switches.xpm
 
 
 F 127, 127, 127
