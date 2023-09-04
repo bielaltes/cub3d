@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 16:48:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:57:40 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,12 +162,6 @@ void  print_rays(t_game *game)
 
 
 
-int	close_win(t_image *map)
-{
-	if (map)
-		mlx_destroy_window(map->win_addr, map->win_ptr);
-	exit(0);
-}
 int print_win(int key, t_game *game)
 {
   if (key == W || key == A || key == S || key == D || key == 123 || key == 124)
@@ -201,12 +195,12 @@ int print_win(int key, t_game *game)
     if (key == 124) //derecha
       game->player.angle -= 5;
     game->player.angle = FixAng(game->player.angle);
-    mlx_clear_window(game->map.win_addr, game->map.win_ptr);
-    print_2d(game->map, 0x00af00af, 0x0000af00);
+    mlx_clear_window(game->mlx.mlx, game->mlx.mlx_win);
+    print_2d(game->mlx.img, 0x00af00af, 0x0000af00);
     print_rays(game);
     print_player(*game, 0x0000ffff);
-    mlx_put_image_to_window(game->map.win_addr, game->map.win_ptr, \
-    game->map.img, 0, 0);
+    mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win,
+		game->mlx.img.img, 0, 0);
   }
   return (0);
 }
@@ -277,7 +271,7 @@ void  print_2d(t_image map, int color1, int color2)
 ////////////////print map 2D
 
 
-/*int	main(void)
+int	main(void)
 {
   t_game game;
 	t_image	map;
@@ -288,13 +282,13 @@ void  print_2d(t_image map, int color1, int color2)
 
 
 ////////////map creation
-	map.win_addr = mlx_init();
-	map.win_ptr = mlx_new_window(map.win_addr, screenWidth, screenHeight, \
+	game.mlx.mlx = mlx_init();
+	game.mlx.mlx_win = mlx_new_window(game.mlx.mlx, screenWidth, screenHeight, \
 	"tests");
 ////////////map creation
 
 ///////////////img creation
-  map.img = mlx_new_image(map.win_ptr, screenHeight, screenWidth);
+  map.img = mlx_new_image(game.mlx.mlx, screenHeight, screenWidth);
   map.addr = mlx_get_data_addr(map.img, &map.bits_per_pixel, \
   &map.line_length, &map.endian);
 ///////////////img creation
@@ -308,12 +302,11 @@ print_rays(&game);
 ////////////////print player 2D
 print_player(game, 0x0000ffff);
 ////////////////print player 2D
-  mlx_put_image_to_window(game.map.win_addr, game.map.win_ptr, \
-  game.map.img, 0, 0);
+  mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win,
+		game.mlx.img.img, 0, 0);
 
-  mlx_hook(map.win_ptr, 2, 0, print_win, &game);
+  mlx_hook(game.mlx.mlx, 2, 0, print_win, &game);
   // mlx_hook(map.win_ptr, 2, 0, print_angle, &game);
-	mlx_hook(map.win_ptr, 17, 0, close_win, &map);
-	mlx_loop(map.win_addr);
+	mlx_loop(game.mlx.mlx);
   return (0);
-}*/
+}

@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/04 16:45:50 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/09/04 16:57:56 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ SRC_L	=	main.c					\
 			PARSE/init.c			\
 			HOOKS/hooks.c			\
 			RENDER/draw_vertical.c	\
-			UTILS/pixel.c
+			UTILS/pixel.c			\
+			MAP/prov_main.c
 
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
