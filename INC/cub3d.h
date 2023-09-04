@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 15:20:02 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:45:12 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,22 @@
 # include <math.h>
 # include "../LIB/libft/libft.h"
 # include "../LIB/minilibx_opengl_20191021/mlx.h"
+
+# define PI 3.14159265359
+# define SPEED 15
+# define TURN 0.05
+# define W 13
+# define A 0
+# define S 1
+# define D 2
+
+# define PI 3.14159265359
+# define SPEED 15
+# define TURN 0.05
+# define W 13
+# define A 0
+# define S 1
+# define D 2
 
 # define SUCCESS 1
 # define FAILURE 0
@@ -97,5 +113,10 @@ int			my_pixel_get(t_image *img, int x, int y);
 //RENDER
 
 int draw_vertical(t_game *game, t_image *img, t_image *tex, int height, int x, int x_tex);
+
+float FixAng(float a);
+void  my_mlx_pixel_put(t_image *data, int x, int y, int color);
+
+
 
 #endif
