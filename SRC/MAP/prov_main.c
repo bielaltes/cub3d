@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 04:36:38 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:41:00 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ float  ray_colision(t_game *game, float angle)
     distance = ry / cos(radang(90 - angle));
   // int start = 
   // for ()
-  printf("rx::::%f,ry::::::%f,dist::::::%f, ang::::%f,\n", rx, ry, distance, angle);
+  // printf("rx::::%f,ry::::::%f,dist::::::%f, ang::::%f,\n", rx, ry, distance, angle);
   // if (angle < 45)
     // return (0);
   return (distance);
@@ -141,7 +141,7 @@ void  print_rays(t_game *game)
   float angle;
   float ray_distance;
 
-  for (int x = 0; x < 60; x += 3)
+  for (float x = 0; x < 60; x += 0.055)
   {
     angle = game->player.angle - 30 + x; 
     angle = FixAng(angle);
@@ -149,18 +149,15 @@ void  print_rays(t_game *game)
     // printf("distance::::::::%f,\n", ray_distance);
     for (int j = 0; j<ray_distance;j++)
     {
-      printf("map_pos:::::%i,\n", worldMap[(int)((j *cos(radang(angle)) + game->player.locX*16)/16)][(int)(((game->player.locY*16) - j * sin(radang(angle)))/16)]);
+      // printf("map_pos:::::%f,%f\n", ((j *cos(radang(angle)) + game->player.locX*16)/16),(((game->player.locY*16) - j * sin(radang(angle)))/16));
       if (worldMap[(int)((j *cos(radang(angle)) + game->player.locX*16)/16)][(int)(((game->player.locY*16) - j * cos(radang(90 - angle)))/16)] > 0)
         break;
       my_mlx_pixel_put(&game->map, j *cos(radang(angle)) \
       + (game->player.locX*16) + 4 , 4 + game->player.locY*16 - j * sin(radang(angle)) , 0x00000000); 
     }
+     
   }
-
 }
-
-
-
 ////////first raycast tests
 
 
