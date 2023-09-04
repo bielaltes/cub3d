@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/08/31 22:40:24 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:09:41 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,91 @@ int read_map(int fd, t_game *game)
 	return (SUCCESS);
 }
 
+int check_first_last(char *line)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		++i;
+	while (line[i] && line[i] == '1')
+		++i;
+	if (line[i] == '\n' || line[i] == '\0')
+		return (SUCCESS);
+	else
+	{
+		return (exit_parse("Error in map's first or last line"));
+	}
+	return (SUCCESS);
+}
+
+int setup_pl(t_player *player, char coord, int col, int row)
+{
+	player->locX = col;
+	player->locY = row;
+	if (coord == 'E')
+		player->angle = 0;
+	else if (coord == 'N')
+		player->angle = 90;
+	else if (coord == 'W')
+		player->angle = 180;
+	else if (coord == 'S')
+		player->angle = 270;
+	else
+		return (exit_parse("Error assigning the orentation"));
+	return (SUCCESS);
+}
+
+int check_inside(char *line, t_player *player, int *found, int row)
+{
+	int i;
+
+	i = 0;
+	while (line[i] && line[i] == ' ')
+		++i;
+	if (line[i] != '1' || line[ft_strlen(line) -1] != '1')
+	{
+		//printf("%c %c \n", line[i], line[ft_strlen(line) -2]);
+		return (exit_parse("Map is not closed"));
+	}
+	while (line[i] && (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
+	{
+		if (line[i] != '1' && line[i] != '0')
+		{
+			if (*found == 0)
+			{
+				//printf("%c\n", line[i]);
+				setup_pl(player, line[i], i, row);
+				*found = 1;
+			}
+			else
+				exit_parse("Two players were found");
+		}
+		++i;
+	}
+	if (line[i] != '\n' && line[i] != '\0')
+		return (exit_parse("No map character was found in map"));
+	return (SUCCESS);
+}
+
+int	check_map(char **map, t_player *player)
+{
+	int	i;
+	int	found;
+
+	found = 0;
+	i = 0;
+	while (map[i])
+	{
+		if (i == 0 || !map[i+1])
+			check_first_last(map[i]);
+		else
+			check_inside(map[i], player, &found, i);
+		++i;
+	}
+	return (SUCCESS);
+}
+
 int parse(int argc, char **argv, t_game *game)
 {
 	int     fd;
@@ -152,6 +237,6 @@ int parse(int argc, char **argv, t_game *game)
 	read_textures_colours(fd, game);
 	//check_textures(&game->map);
 	read_map(fd, game);
-	//check_map();
+	check_map(game->map.map, &game->player);
 	return (SUCCESS);
 }

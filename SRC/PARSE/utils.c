@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 12:29:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/08/31 18:10:15 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 08:49:58 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int exit_parse(char *str)
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	exit (1);
+	return (FAILURE);
 }
 
 void free_split(char **split)
