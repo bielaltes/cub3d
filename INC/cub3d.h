@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 00:55:50 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/04 03:24:41 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,9 @@ typedef struct s_game {
     // t_image     image;
 }       t_game;
 
-int FixAng(int a);
+float FixAng(float a);
+void  my_mlx_pixel_put(t_image *data, int x, int y, int color);
+
+
 
 #endif

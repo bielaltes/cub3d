@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 01:39:05 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/04 04:36:38 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,119 @@ int worldMap[mapWidth][mapHeight]=
 void  print_2d(t_image map, int color1, int color2);
 void  print_player(t_game game, int color);
 
+float radang(float angle)
+{
+  return (angle * M_PI / 180);
+}
+
+
+
+float  ray_colision(t_game *game, float angle)
+{
+  //////quiero saber si en la diagonal que estoy trazando, donde acaba 
+  //////colisionando para dibujar la linea.
+  float rx;
+  float ry;
+  /////////printing rx && ry (distance to walls)
+  if (angle <= 90 && angle > 0)
+  {
+    rx = (mapWidth - game->player.locX) * 16;
+    ry = (game->player.locY) * 16;
+    for (int x = 0; x<rx;x++)
+      my_mlx_pixel_put(&game->map, x + (game->player.locX*16) + 4 , \
+      4 + game->player.locY*16, 0x00ffffff); 
+  
+    for (int x = 0; x<ry;x++)
+      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      4 + game->player.locY*16 - x, 0x00ffffff);
+  }
+  if (angle <= 180 && angle > 90)
+  {
+    rx = (game->player.locX) * 16;
+    ry = (game->player.locY) * 16;
+    
+    for (int x = 0; x<rx;x++)
+      my_mlx_pixel_put(&game->map, -x + (game->player.locX*16) + 4 , \
+       4 + game->player.locY*16, 0x00ffffff); 
+  
+    for (int x = 0; x<ry;x++)
+      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      4 + game->player.locY*16 - x, 0x00ffffff);
+
+  }
+  if (angle <= 270 && angle > 180)
+  {
+    rx = (game->player.locX) * 16;
+    ry = (mapHeight - game->player.locY) * 16;
+    for (int x = 0; x<rx;x++)
+      my_mlx_pixel_put(&game->map, -x + (game->player.locX*16) + 4 , \
+      4 + game->player.locY*16, 0x00ffffff); 
+  
+    for (int x = 0; x<ry;x++)
+      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      4 + game->player.locY*16 + x, 0x00ffffff);
+  }
+  if (angle <= 360 && angle > 270)
+  {
+    rx = (mapWidth - game->player.locX) * 16 ;
+    ry = (mapHeight - game->player.locY) * 16;
+    for (int x = 0; x<rx;x++)
+      my_mlx_pixel_put(&game->map, +x + (game->player.locX*16) + 4 , \
+      4 + game->player.locY*16, 0x00ffffff); 
+  
+    for (int x = 0; x<ry;x++)
+      my_mlx_pixel_put(&game->map,(game->player.locX*16) + 4 , \
+      4 + game->player.locY*16 + x, 0x00ffffff);
+  }
+  /////////printing rx && ry (distance to walls)
+  // rx -= 16;
+  // ry -= 16;
+
+  //now with rx & ry we should calculate the ray properly.
+  float  distance = 0;
+  if (angle < game->player.angle)
+    distance = rx / cos(radang(angle));
+  else
+    distance = ry / cos(radang(90 - angle));
+  // int start = 
+  // for ()
+  printf("rx::::%f,ry::::::%f,dist::::::%f, ang::::%f,\n", rx, ry, distance, angle);
+  // if (angle < 45)
+    // return (0);
+  return (distance);
+}
+
+
+////////first raycast tests
+void  print_rays(t_game *game)
+{
+   //Quiero imprimir rayos desde el POV del jugador y +-30.
+  float angle;
+  float ray_distance;
+
+  for (int x = 0; x < 60; x += 3)
+  {
+    angle = game->player.angle - 30 + x; 
+    angle = FixAng(angle);
+    ray_distance = ray_colision(game, angle);
+    // printf("distance::::::::%f,\n", ray_distance);
+    for (int j = 0; j<ray_distance;j++)
+    {
+      printf("map_pos:::::%i,\n", worldMap[(int)((j *cos(radang(angle)) + game->player.locX*16)/16)][(int)(((game->player.locY*16) - j * sin(radang(angle)))/16)]);
+      if (worldMap[(int)((j *cos(radang(angle)) + game->player.locX*16)/16)][(int)(((game->player.locY*16) - j * cos(radang(90 - angle)))/16)] > 0)
+        break;
+      my_mlx_pixel_put(&game->map, j *cos(radang(angle)) \
+      + (game->player.locX*16) + 4 , 4 + game->player.locY*16 - j * sin(radang(angle)) , 0x00000000); 
+    }
+  }
+
+}
+
+
+
+////////first raycast tests
+
+
 
 int	close_win(t_image *map)
 {
@@ -93,6 +206,7 @@ int print_win(int key, t_game *game)
     game->player.angle = FixAng(game->player.angle);
     mlx_clear_window(game->map.win_addr, game->map.win_ptr);
     print_2d(game->map, 0x00af00af, 0x0000af00);
+    print_rays(game);
     print_player(*game, 0x0000ffff);
     mlx_put_image_to_window(game->map.win_addr, game->map.win_ptr, \
     game->map.img, 0, 0);
@@ -127,51 +241,14 @@ void  print_player(t_game game, int color)
 }
 ////////////////print player 2D
 
-int FixAng(int a)
+float FixAng(float a) //funcion importante para no pasarnos del angulo que nos interesa.
 { 
-     if(a>359)
-          a-=360;
-     if(a<0)
-          a+=360;
-     return a;
+     if(a > 359)
+        a -= 360;
+     if(a < 0)
+        a += 360;
+     return (a);
 }
-
-
-// void drawLineWithAngle(int x, int y, double angle, int length) {
-//     // Convertir el ángulo de grados a radianes
-//     double radians = angle * M_PI / 180.0;
-
-//     // Calcular las coordenadas del punto final
-//     int x2 = x + length * cos(radians);
-//     int y2 = y - length * sin(radians); // Restar y para invertir la dirección del eje y
-
-//     // Dibujar la línea
-//     int i;
-//     for (i = 0; i <= length; i++) {
-//         put_pixel(x + i * cos(radians), y - i * sin(radians)); // Llama a tu función put_pixel para dibujar el píxel
-//     }
-// }
-
-////////////////print angle hook 2D
-int  print_angle(int key, t_game *game)
-{
-  if (key == 123 || key == 124)
-  {
-    if (key == 123) //izquierda
-      game->player.angle += 5;
-    if (key == 124) //derecha
-      game->player.angle -= 5;
-    game->player.angle = FixAng(game->player.angle);
-    mlx_clear_window(game->map.win_addr, game->map.win_ptr);
-    print_2d(game->map, 0x00af00af, 0x0000af00);
-    print_player(*game, 0x0000ffff);
-    mlx_put_image_to_window(game->map.win_addr, game->map.win_ptr, \
-    game->map.img, 0, 0);
-  }
-  return (0);
-}
-////////////////print angle hook 2D
-
 
 ////////////////print map 2D
 void  print_2d(t_image map, int color1, int color2)
@@ -210,7 +287,7 @@ int	main(void)
 
   game.player.locX = 12;
   game.player.locY = 12;
-  game.player.angle = 0;
+  game.player.angle = 45;
 
 
 ////////////map creation
@@ -229,6 +306,7 @@ int	main(void)
 print_2d(map, 0x00af00af, 0x0000af00);
 ////////////////print map 2D
   game.map = map;
+print_rays(&game);
 
 ////////////////print player 2D
 print_player(game, 0x0000ffff);
