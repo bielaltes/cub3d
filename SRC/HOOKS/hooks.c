@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:58:44 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 19:56:16 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/04 20:15:37 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@ int key_hook(int key, t_game *game)
 {
   if (key == W || key == A || key == S || key == D || key == 123 || key == 124)
   {
-	if (key == W) //w
+	if (key == S) //w
 	{
 		game->player.locX -= game->player.dirX;
 		game->player.locY -= game->player.dirY;
 	}
-	if (key == A) //a
+	if (key == D) //a
 	{
 	  	game->player.locX -= game->player.dirY;
 		game->player.locY += game->player.dirX;
 	}
-	if (key == S) //s
+	if (key == W) //s
 	{
 		game->player.locX += game->player.dirX;
 		game->player.locY += game->player.dirY;
 	}
-	if (key == D) //d
+	if (key == A) //d
 	{
 	  	game->player.locX += game->player.dirY;
 		game->player.locY -= game->player.dirX;
