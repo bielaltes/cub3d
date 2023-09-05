@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:02:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 16:51:49 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:44:14 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,17 +146,26 @@ int render(t_game *game)
 		int lineHeight = (int)(HEIGHT / perpWallDist);
 
 		float wallX;
+		
 		if (side == 0)
 			wallX = pl.locY + perpWallDist * rayDirY;
 		else 
 		    wallX = pl.locX + perpWallDist * rayDirX;
 		wallX = wallX - floor(wallX);
 		int texX = (int)(wallX * 64);
-		/*if (side == 0 && rayDirX > 0)
-			texX = 64 - texX - 1;
-		if (side == 1 && rayDirX < 0)
-			texX = 64 - texX - 1;*/
-		draw_vertical(game, &game->mlx.img, &game->mlx.textures[1], lineHeight, x, texX);
+
+		//triar textura
+		int t;
+		if (side == 0 && rayDirX < 0)
+			t = 0;
+		else if (side == 0 && rayDirX > 0)
+			t = 1;
+		else if (side == 1 && rayDirY < 0)
+			t = 2;
+		else
+			t = 3;
+
+		draw_vertical(game, &game->mlx.img, &game->mlx.textures[t], lineHeight, x, texX);
 	}	
 	wasd_moves(game);
 	rot_moves(game);

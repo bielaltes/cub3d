@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 17:38:44 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:53:08 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@
 # define SECOND 2
 # define BOTH 3
 
-# define HEIGHT 600
-# define WIDTH 800
+# define HEIGHT 1080
+# define WIDTH 1920
 
 typedef struct s_color {
 	unsigned char r;
