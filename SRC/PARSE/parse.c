@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 20:16:05 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:10:08 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,33 +160,33 @@ int check_first_last(char *line)
 
 int setup_pl(t_player *player, char coord, int col, int row)
 {
-	player->locX = col;
-	player->locY = row;
-	if (coord == 'W')
-	{
-		player->dirX = 1;
-		player->dirY = 0;
-		player->planeX = 0;
-		player->planeY = 0.66;
-	}
-	else if (coord == 'S')
-	{
-		player->dirX = 0;
-		player->dirY = 1;
-		player->planeX = 0.66;
-		player->planeY = 0;
-	}
-	else if (coord == 'E')
+	player->locX = row + 0.5;
+	player->locY = col + 0.5;
+	if (coord == 'N')
 	{
 		player->dirX = -1;
 		player->dirY = 0;
 		player->planeX = 0;
 		player->planeY = 0.66;
 	}
-	else if (coord == 'N')
+	else if (coord == 'S')
+	{
+		player->dirX = 1;
+		player->dirY = 0;
+		player->planeX = 0;
+		player->planeY = -0.66;
+	}
+	else if (coord == 'E')
 	{
 		player->dirX = 0;
 		player->dirY = -1;
+		player->planeX = -0.66;
+		player->planeY = 0;
+	}
+	else if (coord == 'W')
+	{
+		player->dirX = 0;
+		player->dirY = 1;
 		player->planeX = 0.66;
 		player->planeY = 0;
 	}
@@ -251,7 +251,7 @@ int parse(int argc, char **argv, t_game *game)
 
 	if (argc != 2)
 		exit_parse("Invalid number of arguments");
-	fd = open(argv[1], O_RDWR);
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit_parse("Cannot open map file");
 	read_textures_colours(fd, game);

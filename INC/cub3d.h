@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 20:41:12 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 17:38:44 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,13 @@
 # include "../LIB/minilibx_opengl_20191021/mlx.h"
 
 # define PI 3.14159265359
-# define SPEED 15
+# define SPEED 0.09
 # define TURN 0.05
 # define W 13
 # define A 0
 # define S 1
 # define D 2
 
-# define PI 3.14159265359
-# define SPEED 15
-# define TURN 0.05
-# define W 13
-# define A 0
-# define S 1
-# define D 2
 
 # define SUCCESS 1
 # define FAILURE 0
@@ -46,8 +39,8 @@
 # define SECOND 2
 # define BOTH 3
 
-# define HEIGHT 1080
-# define WIDTH 1920
+# define HEIGHT 600
+# define WIDTH 800
 
 typedef struct s_color {
 	unsigned char r;
@@ -93,10 +86,20 @@ typedef struct s_mlx
 	t_image		textures[4];
 }		t_mlx;
 
+typedef struct	s_key {
+	char	w;
+	char	a;
+	char	s;
+	char	d;
+	char	left;
+	char	right;
+}		t_key;
+
 typedef struct s_game {
 	t_player    player;
 	t_map       map;
 	t_mlx       mlx;
+	t_key		key;
 }       t_game;
 
 //PARSE
@@ -110,6 +113,11 @@ int 		init(t_game *game);
 //HOOKS
 
 int			key_hook(int key_code, t_game *game);
+int 		key_hook_release(int key, t_game *game);
+int			wasd_moves(t_game *game);
+int			rot_moves(t_game *game);
+
+
 
 
 //UTILS

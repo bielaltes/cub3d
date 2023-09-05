@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:02:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 20:42:03 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:51:49 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void  print_2d(t_game *game, int color1, int color2)
 {
   int color;
   
-  for(int y=0;y<31;y++)
+  for(int y=0;y<15;y++)
   {
-    for(int x=0;x<33;x++)
+    for(int x=0;x<30;x++)
     {
       if(game->map.map[y][x]< '1')
       { 
@@ -61,8 +61,7 @@ void  print_player(t_game game, int color)
   }
   for(int x=0; x<16; x++)
   {
-	float angle = atan(game.player.dirY/game.player.dirX);
-	// angle = FixAng(angle);
+	float angle = atan2(game.player.dirY, game.player.dirX);
 	// printf("angle::::%f,dirY:::::::%f,dirX::::::%f\n", angle,game.player.dirY, game.player.dirX);
     my_pixel_put(&game.mlx.img, x *cos(angle) \
     + (game.player.locX*16) + 4 , 4 + game.player.locY*16 - x * sin(angle) , color); 
@@ -76,7 +75,7 @@ int render(t_game *game)
 	for (int x = 0; x < WIDTH; ++x)
 	{
 		//calculate ray position and direction
-		float cameraX = 2*x/(float)(WIDTH-1); //x-coordinate in camera space
+		float cameraX = 2*x/(float)WIDTH -1; //x-coordinate in camera space
 		float rayDirX = pl.dirX + pl.planeX*cameraX;
 		float rayDirY = pl.dirY + pl.planeY*cameraX;
 
@@ -87,10 +86,9 @@ int render(t_game *game)
 		//length of ray from current position to next x or y-side
 		float sideDistX;
 		float sideDistY;
-
 		//length of ray from one x or y-side to next x or y-side
-		float deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX));
-		float deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY));
+		float deltaDistX = fabs(1/rayDirX);
+      	float deltaDistY = fabs(1/rayDirY);
 		float perpWallDist;
 
 		//what direction to step in x or y-direction (either +1 or -1)
@@ -137,26 +135,33 @@ int render(t_game *game)
 				side = 1;
 			}
 			//Check if ray has hit a wall
-			if ((mapX >= 0 && mapY >= 0 && mapX <2 && mapY <2) || game->map.map[mapY][mapX] == '1') hit = 1;
+			if (game->map.map[mapX][mapY] == '1')
+				hit = 1;
 		}
 
 		//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-		if(side == 0) perpWallDist = (sideDistX - deltaDistX);
-		else          perpWallDist = (sideDistY - deltaDistY);
+		if(side == 0) perpWallDist = (mapX - pl.locX + (1 - stepX) / 2) / rayDirX;
+		else          perpWallDist = (mapY - pl.locY + (1 - stepY) / 2) / rayDirY;
 		//Calculate height of line to draw on screen
 		int lineHeight = (int)(HEIGHT / perpWallDist);
 
-		double wallX;
+		float wallX;
 		if (side == 0)
 			wallX = pl.locY + perpWallDist * rayDirY;
 		else 
 		    wallX = pl.locX + perpWallDist * rayDirX;
-		wallX = wallX - (int)wallX;
-		draw_vertical(game, &game->mlx.img, &game->mlx.textures[1], lineHeight, x, wallX * 64);
-	}
-	print_2d(game, 0x00ff0000, 0x0000FF00);
-	print_player(*game, 0x000af56F);
+		wallX = wallX - floor(wallX);
+		int texX = (int)(wallX * 64);
+		/*if (side == 0 && rayDirX > 0)
+			texX = 64 - texX - 1;
+		if (side == 1 && rayDirX < 0)
+			texX = 64 - texX - 1;*/
+		draw_vertical(game, &game->mlx.img, &game->mlx.textures[1], lineHeight, x, texX);
+	}	
+	wasd_moves(game);
+	rot_moves(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win,
 		game->mlx.img.img, 0, 0);
+	
 	return (SUCCESS);
 }

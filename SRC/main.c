@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:51:39 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 18:12:06 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:53:28 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ int main(int argc, char **argv)
 	mlx_put_image_to_window(game.mlx.mlx, game.mlx.mlx_win,
 		game.mlx.img.img, 0, 0);
 	*/
-	mlx_hook(game.mlx.mlx_win, 2, 0, &key_hook, &game);
+	mlx_hook(game.mlx.mlx_win, 2, (1L << 0), &key_hook, &game);
+	mlx_hook(game.mlx.mlx_win, 3, (1L << 0), &key_hook_release, &game);
 	render(&game);
+	mlx_loop_hook(game.mlx.mlx, render, &game);
 	mlx_loop(game.mlx.mlx);
 }

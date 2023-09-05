@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:01:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/04 15:27:33 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/05 16:54:59 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ int charge_textures(t_mlx *mlx, t_map *map)
 	return (SUCCESS);
 }
 
+int init_keys(t_game *game)
+{
+	game->key.w = 0;
+	game->key.a = 0;
+	game->key.s = 0;
+	game->key.d = 0;
+	game->key.left = 0;
+	game->key.right = 0;
+	return (SUCCESS);
+}
+
 int init(t_game *game)
 {
 	game->mlx.mlx = mlx_init();
@@ -51,5 +62,6 @@ int init(t_game *game)
 	if (!game->mlx.img.addr)
 		exit_parse("Cound not get img address");
 	charge_textures(&game->mlx, &game->map);
+	init_keys(game);
 	return (SUCCESS);
 }
