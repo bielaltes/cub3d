@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:01:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 19:12:26 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:56:56 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int save_texture(t_mlx *mlx, t_image *img, char *path)
 }
 int charge_textures(t_mlx *mlx, t_map *map)
 {
-	save_texture(mlx, &mlx->textures[0], map->tex_N);
-	save_texture(mlx, &mlx->textures[1], map->tex_S);
-	save_texture(mlx, &mlx->textures[2], map->tex_E);
-	save_texture(mlx, &mlx->textures[3], map->tex_O);
+	save_texture(mlx, &mlx->textures[0], map->tex_n);
+	save_texture(mlx, &mlx->textures[1], map->tex_s);
+	save_texture(mlx, &mlx->textures[2], map->tex_e);
+	save_texture(mlx, &mlx->textures[3], map->tex_o);
 	return (SUCCESS);
 }
 
@@ -70,35 +70,35 @@ int init(t_game *game)
 
 int setup_pl(t_player *player, char coord, int col, int row)
 {
-	player->locX = row + 0.5;
-	player->locY = col + 0.5;
+	player->locx = row + 0.5;
+	player->locy = col + 0.5;
 	if (coord == 'N')
 	{
-		player->dirX = -1;
-		player->dirY = 0;
-		player->planeX = 0;
-		player->planeY = 0.66;
+		player->dirx = -1;
+		player->diry = 0;
+		player->planex = 0;
+		player->planey = 0.66;
 	}
 	else if (coord == 'S')
 	{
-		player->dirX = 1;
-		player->dirY = 0;
-		player->planeX = 0;
-		player->planeY = -0.66;
+		player->dirx = 1;
+		player->diry = 0;
+		player->planex = 0;
+		player->planey = -0.66;
 	}
 	else if (coord == 'E')
 	{
-		player->dirX = 0;
-		player->dirY = -1;
-		player->planeX = -0.66;
-		player->planeY = 0;
+		player->dirx = 0;
+		player->diry = -1;
+		player->planex = -0.66;
+		player->planey = 0;
 	}
 	else if (coord == 'W')
 	{
-		player->dirX = 0;
-		player->dirY = 1;
-		player->planeX = 0.66;
-		player->planeY = 0;
+		player->dirx = 0;
+		player->diry = 1;
+		player->planex = 0.66;
+		player->planey = 0;
 	}
 	else
 		return (exit_parse("Error assigning the orentation"));

@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:07:53 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 22:50:39 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:52:48 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int	check_map(t_game *game, char **map, t_player *player)
 	}
 	found = 0;
 	visited = create_string(game, '0', game->map.n_cols * game->map.n_rows);
-	dfs(&game->map, visited, player->locX, player->locY, &found);
+	dfs(&game->map, visited, player->locx, player->locy, &found);
 	if (found)
 		exit_parse("Map is opened somewhere");
 	free(visited);

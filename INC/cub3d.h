@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 23:44:36 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 00:27:52 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define A 0
 # define S 1
 # define D 2
-# define RIGHT 123
-# define LEFT 124
+# define RIGHT 124
+# define LEFT 123
 
 # define SUCCESS 1
 # define FAILURE 0
@@ -72,13 +72,13 @@ typedef struct s_map {
 }       t_map;
 
 typedef struct s_player {
-	float locX;
-	float locY;
+	float locx;
+	float locy;
 	float angle;
-	float dirX;
-	float dirY;
-	float planeX;
-	float planeY;
+	float dirx;
+	float diry;
+	float planex;
+	float planey;
 }       t_player;
 
 typedef struct s_mlx
@@ -106,20 +106,20 @@ typedef struct s_game {
 }       t_game;
 
 typedef struct s_ray {
-	float		cameraX;
-	int			mapX;
-	int			mapY;
-	int			stepX;
-	int			stepY;
+	float		camerax;
+	int			mapx;
+	int			mapy;
+	int			stepx;
+	int			stepy;
 	int			hit;
 	int			side;
-	float		sideDistX;
-	float		sideDistY;
-	float		deltaDistX;
-	float		deltaDistY;
-	float		rayDirX;
-	float		rayDirY;
-	float		perpWallDist;
+	float		sidedistx;
+	float		sidedisty;
+	float		deltadistx;
+	float		deltadisty;
+	float		raydirx;
+	float		raydiry;
+	float		perpwalldist;
 }		t_ray;
 
 //EXIT
@@ -153,6 +153,7 @@ int			wasd_moves(t_game *game);
 int			rot_moves(t_game *game);
 int 		mouse_hook(int key, int x, int y, t_game *game);
 int 		mouse_hook_release(int key, int x, int y, t_game *game);
+int         check_correct(char **map, int x, int y);
 
 //RENDER
 
