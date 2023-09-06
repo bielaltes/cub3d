@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 13:39:02 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:27:29 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ typedef struct s_map {
 	t_color floor;
 	t_color ceiling;
 	char    **map;
+	int		n_cols;
+	int		n_rows;
 }       t_map;
 
 typedef struct s_player {
@@ -129,6 +131,18 @@ int	        ft_strlen_n(const char *str);
 int         parse(int argc, char **argv, t_game *game);
 int	        ft_ptrlen(char **str);
 int 		init(t_game *game);
+int			ft_atoi_cub(char *str, int free_args);
+int 		setup_pl(t_player *player, char coord, int col, int row);
+char		*create_string(t_game *game, char c, int size);
+void		dfs(t_map *m, char *visited, int i, int j, int *found);
+char		*create_string(t_game *game, char c, int size);
+void		dfs(t_map *m, char *visited, int i, int j, int *found);
+int			is_map(char *line);
+int			read_texture(t_game * game, char *line);
+int 		read_colour(t_game * game, char *line);
+int 		read_map(int fd, t_game *game);
+int 		check_inside(char *line, t_player *player, int *found, int row);
+int			check_map(t_game *game, char **map, t_player *player);
 
 //HOOKS
 
@@ -139,19 +153,21 @@ int			rot_moves(t_game *game);
 int 		mouse_hook(int key, int x, int y, t_game *game);
 int 		mouse_hook_release(int key, int x, int y, t_game *game);
 
+//RENDER
 
-//UTILS
+int 		draw_vertical(t_game *game, t_image *img, t_image *tex, int height, int x, int x_tex);
+float 		FixAng(float a);
+void  		print_rays(t_game *game);
+int 		print_win(int key, t_game *game);
+int		 	render(t_game *game);
+int 		choose_text(t_ray *r);
+int			compute_xcoord(t_player *pl, t_ray *r);
+float		compute_dist(t_player *pl, t_ray *r);
+int			init_render_vars(t_player *pl, t_ray *r, int x);
+int 		find_dist_to_edge(t_player *pl, t_ray *r);
+int 		find_collision(t_game *game, t_ray *r);
 int 		c2int(t_color *c);
 void		my_pixel_put(t_image *data, int x, int y, int color);
 int			my_pixel_get(t_image *img, int x, int y);
-
-
-//RENDER
-
-int draw_vertical(t_game *game, t_image *img, t_image *tex, int height, int x, int x_tex);
-float FixAng(float a);
-void  print_rays(t_game *game);
-int print_win(int key, t_game *game);
-int render(t_game *game);
 
 #endif

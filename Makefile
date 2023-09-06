@@ -6,12 +6,12 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/06 14:56:22 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/09/06 19:29:29 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-NAME		= cub3d
+NAME		= cub3D
 INC_DIR		= INC
 LIB_DIR		= LIB
 MKFL		= Makefile
@@ -45,19 +45,23 @@ endif
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -g -Wall -Wextra -Werror -O3
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 LIBC = ar -rcs
 CC = clang
 # =============
 
 SRC_L	=	main.c					\
 			PARSE/parse.c			\
+			PARSE/colour.c			\
+			PARSE/map.c				\
+			PARSE/textures.c		\
 			PARSE/utils.c			\
 			PARSE/init.c			\
 			HOOKS/hooks.c			\
 			RENDER/draw_vertical.c	\
 			RENDER/render.c			\
-			UTILS/pixel.c			\
+			RENDER/texture.c		\
+			RENDER/pixel.c			\
 			MAP/prov_main.c
 
 

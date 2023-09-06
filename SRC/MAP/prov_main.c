@@ -6,10 +6,11 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:00 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/04 19:41:37 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:21:00 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/*
 #include "../../INC/cub3d.h"
 
 
@@ -189,7 +190,7 @@ int print_win(int key, t_game *game)
 ////////////////print map 2D
 
 
-/*int	main(void)
+int	main(void)
 {
   t_game game;
 	t_image	map;
@@ -228,3 +229,4 @@ print_player(game, 0x0000ffff);
 	mlx_loop(game.mlx.mlx);
   return (0);
 }*/
+
