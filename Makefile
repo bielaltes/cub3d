@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
+#    By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/06 19:29:29 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/09/06 22:44:02 by jareste-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ endif
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
 LIBC = ar -rcs
 CC = clang
 # =============

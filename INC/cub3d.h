@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 19:27:29 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 23:44:36 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
 # define A 0
 # define S 1
 # define D 2
-
+# define RIGHT 123
+# define LEFT 124
 
 # define SUCCESS 1
 # define FAILURE 0
@@ -59,10 +60,10 @@ typedef struct s_image {
 }		t_image;
 
 typedef struct s_map {
-	char    *tex_N;
-	char    *tex_S;
-	char    *tex_E;
-	char    *tex_O;
+	char    *tex_n;
+	char    *tex_s;
+	char    *tex_e;
+	char    *tex_o;
 	t_color floor;
 	t_color ceiling;
 	char    **map;
