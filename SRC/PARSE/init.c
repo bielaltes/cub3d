@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:01:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 16:54:59 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:34:09 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int save_texture(t_mlx *mlx, t_image *img, char *path)
 	img->img = mlx_xpm_file_to_image(mlx->mlx,
 			path, &img->width, &img->height);
 	if (!img->img)
-		exit_parse("Couldn't convert xpm file to image.");
+		exit_parse("Couldn't open or convert xpm file to image.");
+	if (img->width != 64 || img->height != 64)
+		exit_parse("Images must be 64x64");
 	img->addr = mlx_get_data_addr(
 			img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
 	if (!img->addr)

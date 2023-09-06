@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:02:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 18:44:14 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:58:08 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,41 @@ void  print_2d(t_game *game, int color1, int color2)
   }
 }
 
+int choose_text(t_ray *r)
+{
+	int t;
+	
+	if (r->side == 0 && r->rayDirX < 0)
+		t = 0;
+	else if (r->side == 0 && r->rayDirX > 0)
+		t = 1;
+	else if (r->side == 1 && r->rayDirY > 0)
+		t = 2;
+	else
+		t = 3;
+	return (t);
+}
+
+int	compute_xcoord(t_player *pl, t_ray *r)
+{
+	float xcoord;
+
+	if (r->side == 0)
+		xcoord = pl->locY + r->perpWallDist * r->rayDirY;
+	else 
+		xcoord = pl->locX + r->perpWallDist * r->rayDirX;
+	xcoord = xcoord - floor(xcoord);
+	return ((int)(xcoord * 64));
+}
+
+float compute_dist(t_player *pl, t_ray *r)
+{
+	if(r->side == 0) 
+		return ((r->mapX - pl->locX + (1 - r->stepX) / 2) / r->rayDirX);
+	else          
+		return((r->mapY - pl->locY + (1 - r->stepY) / 2) / r->rayDirY);
+}
+
 float FixAng(float a) //funcion importante para no pasarnos del angulo que nos interesa.
 { 
      if(a > 359)
@@ -62,110 +97,87 @@ void  print_player(t_game game, int color)
   for(int x=0; x<16; x++)
   {
 	float angle = atan2(game.player.dirY, game.player.dirX);
-	// printf("angle::::%f,dirY:::::::%f,dirX::::::%f\n", angle,game.player.dirY, game.player.dirX);
     my_pixel_put(&game.mlx.img, x *cos(angle) \
     + (game.player.locX*16) + 4 , 4 + game.player.locY*16 - x * sin(angle) , color); 
   }
 }
 
+int	init_render_vars(t_player *pl, t_ray *r, int x)
+{
+	r->cameraX = 2*x/(float)WIDTH -1;
+	r->rayDirX = pl->dirX + pl->planeX*r->cameraX;
+	r->rayDirY = pl->dirY + pl->planeY*r->cameraX;
+	r->mapX = pl->locX;
+	r->mapY = pl->locY;
+	r->deltaDistX = fabs(1/r->rayDirX);
+	r->deltaDistY = fabs(1/r->rayDirY);
+	r->hit = 0;
+	return (SUCCESS);
+}
+
+int find_dist_to_edge(t_player *pl, t_ray *r)
+{
+	if (r->rayDirX < 0)
+	{
+		r->stepX = -1;
+		r->sideDistX = (pl->locX - r->mapX) * r->deltaDistX;
+	}
+	else
+	{
+		r->stepX = 1;
+		r->sideDistX = (r->mapX + 1.0 - pl->locX) * r->deltaDistX;
+	}
+	if (r->rayDirY < 0)
+	{
+		r->stepY = -1;
+		r->sideDistY = (pl->locY - r->mapY) * r->deltaDistY;
+	}
+	else
+	{
+		r->stepY = 1;
+		r->sideDistY = (r->mapY + 1.0 - pl->locY) * r->deltaDistY;
+	}
+	return (SUCCESS);
+}
+
+int find_collision(t_game *game, t_ray *r)
+{
+	while (r->hit == 0)
+	{
+		if (r->sideDistX < r->sideDistY)
+		{
+			r->sideDistX += r->deltaDistX;
+			r->mapX += r->stepX;
+			r->side = 0;
+		}
+		else
+		{
+			r->sideDistY += r->deltaDistY;
+			r->mapY += r->stepY;
+			r->side = 1;
+		}
+		if (game->map.map[r->mapX][r->mapY] == '1')
+			r->hit = 1;
+	}
+	return (SUCCESS);
+}
+
 int render(t_game *game)
 {
-	t_player pl = game->player;
+	int			x;
+	t_player 	pl;
+	t_ray		r;
 	
-	for (int x = 0; x < WIDTH; ++x)
+	x = 0;
+	pl = game->player;
+	while (x < WIDTH)
 	{
-		//calculate ray position and direction
-		float cameraX = 2*x/(float)WIDTH -1; //x-coordinate in camera space
-		float rayDirX = pl.dirX + pl.planeX*cameraX;
-		float rayDirY = pl.dirY + pl.planeY*cameraX;
-
-		//which box of the map we're in
-		int mapX = pl.locX;
-		int mapY = pl.locY;
-
-		//length of ray from current position to next x or y-side
-		float sideDistX;
-		float sideDistY;
-		//length of ray from one x or y-side to next x or y-side
-		float deltaDistX = fabs(1/rayDirX);
-      	float deltaDistY = fabs(1/rayDirY);
-		float perpWallDist;
-
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
-
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-
-		//calculate step and initial sideDist
-		if (rayDirX < 0)
-		{
-			stepX = -1;
-			sideDistX = (pl.locX - mapX) * deltaDistX;
-		}
-		else
-		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - pl.locX) * deltaDistX;
-		}
-		if (rayDirY < 0)
-		{
-			stepY = -1;
-			sideDistY = (pl.locY - mapY) * deltaDistY;
-		}
-		else
-		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - pl.locY) * deltaDistY;
-		}
-		while (hit == 0)
-		{
-			//jump to next map square, either in x-direction, or in y-direction
-			if (sideDistX < sideDistY)
-			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
-			}
-			else
-			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
-			}
-			//Check if ray has hit a wall
-			if (game->map.map[mapX][mapY] == '1')
-				hit = 1;
-		}
-
-		//Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-		if(side == 0) perpWallDist = (mapX - pl.locX + (1 - stepX) / 2) / rayDirX;
-		else          perpWallDist = (mapY - pl.locY + (1 - stepY) / 2) / rayDirY;
-		//Calculate height of line to draw on screen
-		int lineHeight = (int)(HEIGHT / perpWallDist);
-
-		float wallX;
-		
-		if (side == 0)
-			wallX = pl.locY + perpWallDist * rayDirY;
-		else 
-		    wallX = pl.locX + perpWallDist * rayDirX;
-		wallX = wallX - floor(wallX);
-		int texX = (int)(wallX * 64);
-
-		//triar textura
-		int t;
-		if (side == 0 && rayDirX < 0)
-			t = 0;
-		else if (side == 0 && rayDirX > 0)
-			t = 1;
-		else if (side == 1 && rayDirY < 0)
-			t = 2;
-		else
-			t = 3;
-
-		draw_vertical(game, &game->mlx.img, &game->mlx.textures[t], lineHeight, x, texX);
+		init_render_vars(&pl, &r, x);
+		find_dist_to_edge(&pl, &r);
+		find_collision(game, &r);
+		r.perpWallDist = compute_dist(&pl, &r);
+		draw_vertical(game, &game->mlx.img, &game->mlx.textures[choose_text(&r)], (int)(HEIGHT / r.perpWallDist), x, compute_xcoord(&pl, &r));
+		++x;
 	}	
 	wasd_moves(game);
 	rot_moves(game);

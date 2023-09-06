@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 18:53:08 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:39:02 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,26 @@ typedef struct s_game {
 	t_key		key;
 }       t_game;
 
+typedef struct s_ray {
+	float		cameraX;
+	int			mapX;
+	int			mapY;
+	int			stepX;
+	int			stepY;
+	int			hit;
+	int			side;
+	float		sideDistX;
+	float		sideDistY;
+	float		deltaDistX;
+	float		deltaDistY;
+	float		rayDirX;
+	float		rayDirY;
+	float		perpWallDist;
+}		t_ray;
+
+//EXIT
+int			clean_exit(t_game *game);
+
 //PARSE
 int         exit_parse(char *str);
 void        free_split(char **split);
@@ -116,8 +136,8 @@ int			key_hook(int key_code, t_game *game);
 int 		key_hook_release(int key, t_game *game);
 int			wasd_moves(t_game *game);
 int			rot_moves(t_game *game);
-
-
+int 		mouse_hook(int key, int x, int y, t_game *game);
+int 		mouse_hook_release(int key, int x, int y, t_game *game);
 
 
 //UTILS

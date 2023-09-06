@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 16:10:08 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 15:27:42 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static int read_colour(t_game * game, char *line)
 	}
 	if (line[0] == 'C')
 	{
-		printf("%s %s %s\n", split[1], split[2], split[3]);
 		game->map.ceiling.r = ft_atoi(split[1], NO);
 		game->map.ceiling.g = ft_atoi(split[2], NO);
 		game->map.ceiling.b = ft_atoi(split[3], NO);
@@ -52,7 +51,6 @@ static int read_texture(t_game * game, char *line)
 		exit_parse("Malloc error");
 	if (ft_ptrlen(split) != 2)
 	{
-		printf("Printing: %s, %d\n", split[0], ft_ptrlen(split));
 		exit_parse("Problems reading a line in the map file");
 	}
 	if (line[0] == 'N' && line[1] == 'O')
@@ -137,6 +135,7 @@ int read_map(int fd, t_game *game)
 	if (line)
 		exit_parse("There is something strange around the map");
 	game->map.map = ft_split(str_map, "\n");
+	free(str_map);
 	return (SUCCESS);
 }
 
@@ -204,7 +203,6 @@ int check_inside(char *line, t_player *player, int *found, int row)
 		++i;
 	if (line[i] != '1' || line[ft_strlen(line) -1] != '1')
 	{
-		//printf("%c %c \n", line[i], line[ft_strlen(line) -2]);
 		return (exit_parse("Map is not closed"));
 	}
 	while (line[i] && (line[i] == '1' || line[i] == '0' || line[i] == 'N' || line[i] == 'S' || line[i] == 'W' || line[i] == 'E'))
@@ -213,7 +211,6 @@ int check_inside(char *line, t_player *player, int *found, int row)
 		{
 			if (*found == 0)
 			{
-				//printf("%c\n", line[i]);
 				setup_pl(player, line[i], i, row);
 				*found = 1;
 			}
@@ -251,6 +248,8 @@ int parse(int argc, char **argv, t_game *game)
 
 	if (argc != 2)
 		exit_parse("Invalid number of arguments");
+	if (ft_strlen(argv[1]) < 5 || ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 0xFF))
+		exit_parse("File extension must be '.cub'");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		exit_parse("Cannot open map file");

@@ -6,7 +6,7 @@
 #    By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/05 18:53:17 by baltes-g         ###   ########.fr        #
+#    Updated: 2023/09/06 14:56:22 by baltes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ $(OBJ_DIR)%.o: %.c $(MKFL)
 	@$(CC) $(CFLAGS) -MMD -I $(INC_DIR) $(MLX_CC) -c $< -o $@
 
 $(NAME):: $(OBJ) $(LIB)
-	@printf "\nLinking minishell\n"
+	@printf "\nLinking cub3d\n"
 	@$(CC)  $(CFLAGS) $(OBJ) $(LIB) $(MLX_FLAGS) -o $(NAME)
 
 $(NAME)::

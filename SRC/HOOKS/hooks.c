@@ -6,7 +6,7 @@
 /*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:58:44 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 18:38:42 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:44:40 by baltes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ int key_hook(int key, t_game *game)
 
 int key_hook_release(int key, t_game *game)
 {
-  if (key == W || key == A || key == S || key == D || key == 123 || key == 124)
-  {
 	if (key == W) //w
 		game->key.w = 0;
 	if (key == A) //w
@@ -109,10 +107,33 @@ int key_hook_release(int key, t_game *game)
 		game->key.s = 0;
 	if (key == D) //w
 		game->key.d = 0;
-	if (key == 123) //dreta
+	if (key == 123)
 		game->key.left = 0;
-	if (key == 124) //w
+	if (key == 124)
 		game->key.right = 0;
-  }
-  return (SUCCESS);
+	if (key == 53)
+		clean_exit(game);
+	return (SUCCESS);
+}
+
+int mouse_hook(int key, int x, int y, t_game *game)
+{
+	(void) x;
+	(void) y;
+	if (key == 1)
+		game->key.left = 1;
+	if (key == 2)
+		game->key.right = 1;
+	return (SUCCESS);
+}
+
+int mouse_hook_release(int key, int x, int y, t_game *game)
+{
+	(void) x;
+	(void) y;
+	if (key == 1)
+		game->key.left = 0;
+	if (key == 2)
+		game->key.right = 0;
+	return (SUCCESS);
 }
