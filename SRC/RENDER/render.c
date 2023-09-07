@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 18:02:16 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 05:10:12 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 09:23:50 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int	render(t_game *game)
 	}
 	wasd_moves(game);
 	rot_moves(game);
+	print_2d(game);
 	mlx_put_image_to_window(game->mlx.mlx, game->mlx.mlx_win,
 		game->mlx.img.img, 0, 0);
 	return (SUCCESS);

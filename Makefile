@@ -6,7 +6,7 @@
 #    By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/07 05:27:47 by jareste-         ###   ########.fr        #
+#    Updated: 2023/09/07 09:24:17 by jareste-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRC_L	=	main.c					\
 			RENDER/render.c			\
 			RENDER/texture.c		\
 			RENDER/pixel.c			\
+			RENDER/minmap.c			\
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
 
