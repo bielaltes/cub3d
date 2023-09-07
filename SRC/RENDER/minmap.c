@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:23:36 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 12:24:42 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:30:59 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	aux_print_2d(t_game *game, int x, int y, int color)
 
 	size = 8;
 	color = validate_color(game, color);
-	if (game->map.n_rows * game->map.n_cols > 5000)
+	if (game->map.n_rows * game->map.n_cols > 1500)
 		size = 4;
 	j = 0;
 	while (j < size)
@@ -70,25 +70,3 @@ void	print_2d(t_game *game)
 		y++;
 	}
 }
-
-// void  print_player(t_game *game)
-// {
-//   int color;
-// 	color = 0x0000ffff;
-//   for(int j=0; j<16;j++)
-//   {
-//     for(int k=0; k<16;k++)
-//     {
-//       my_pixel_put(&game->mlx.img,\
-//       (game->player.locy*64/16) + j,\
-//       (game->player.locx*64/16) + k, color);
-//     }
-//   }
-// for(int x=0; x<16; x++)
-// {
-// float angle = atan2(game.player.diry, game.player.dirx);
-//   my_pixel_put(&game.mlx.img, x *cos(angle) \
-//   + (game.player.locx*16) + 4 , 4 + \
-//   game.player.locy*16 - x * sin(angle) , color); 
-// }
-// }

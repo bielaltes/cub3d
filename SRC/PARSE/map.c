@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:07:53 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 05:46:25 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:37:09 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	is_empty(char *line)
 	int	i;
 
 	i = 0;
-	if (!line[1])
-		return (0);
 	while (line[i] != '\n')
 	{
 		if (line[i] != ' ')
@@ -51,7 +49,7 @@ int	read_map(int fd, t_game *game)
 	(0 || (game->map.n_rows = 0) || (game->map.n_cols = 0));
 	line = get_next_line(fd);
 	str_map = ft_strdup("", NO);
-	while (is_empty(line))
+	while (line && is_empty(line))
 		line = get_next_line(fd);
 	while (line && is_map(line) && !is_empty(line))
 	{
@@ -120,7 +118,7 @@ int	check_map(t_game *game, char **map, t_player *player)
 	ch_m.visited = create_string(game, '0', \
 	game->map.n_cols * game->map.n_rows);
 	if (game->map.n_cols < 3 || player->player == 0)
-		exit_parse("Map is opened somewhere");
+		exit_parse("Invalid map");
 	dfs(&game->map, &ch_m, player->locx, player->locy);
 	if (ch_m.found)
 		exit_parse("Map is opened somewhere");

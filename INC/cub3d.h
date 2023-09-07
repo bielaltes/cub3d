@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 12:24:51 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:31:51 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,6 @@ int			find_collision(t_game *game, t_ray *r);
 int			c2int(t_color *c);
 void		my_pixel_put(t_image *data, int x, int y, int color);
 int			my_pixel_get(t_image *img, int x, int y);
-
-// void print_2d(t_game *game);
+void		print_2d(t_game *game);
 
 #endif
