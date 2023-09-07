@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:12:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 05:10:07 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 05:44:42 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_player
 	float		diry;
 	float		planex;
 	float		planey;
+	int			player;
 }		t_player;
 
 typedef struct s_mlx

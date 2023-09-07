@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 15:51:39 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 23:50:33 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 05:35:51 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	clean_exit(t_game *game)
 		free(game->map.map[i]);
 	if (game->map.map)
 		free(game->map.map);
-	if (game->mlx.mlx_win)
+	if (game->mlx.mlx_win && game->mlx.mlx)
 		mlx_destroy_window(game->mlx.mlx, game->mlx.mlx_win);
 	exit(0);
 }

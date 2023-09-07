@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 02:00:44 by jareste-          #+#    #+#             */
-/*   Updated: 2023/09/07 02:07:13 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 05:45:01 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	setup_pl(t_player *player, char coord, int col, int row)
 {
 	player->locx = row + 0.5;
 	player->locy = col + 0.5;
+	player->player = 1;
 	if (coord == 'N')
 		setup_n(player);
 	else if (coord == 'S')
