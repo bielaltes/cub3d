@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 05:38:44 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:57:09 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	parse(int argc, char **argv, t_game *game)
 {
 	int	fd;
 
+	game->player.player = 0;
 	if (argc != 2)
 		exit_parse("Invalid number of arguments");
 	if (ft_strlen(argv[1]) < 5 || ft_strncmp(argv[1] \

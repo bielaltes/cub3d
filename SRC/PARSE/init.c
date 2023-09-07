@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:01:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 05:46:28 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 13:57:06 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int	init(t_game *game)
 			&(game->mlx.img.line_length), &(game->mlx.img.endian));
 	if (!game->mlx.img.addr)
 		exit_parse("Cound not get img address");
-	game->player.player = 0;
 	charge_textures(&game->mlx, &game->map);
 	init_keys(game);
 	return (SUCCESS);
