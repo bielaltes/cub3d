@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:07:53 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 01:59:01 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 05:14:40 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ int	is_empty(char *line)
 	int	i;
 
 	i = 0;
+	if (!line[1])
+		return (0);
 	while (line[i] != '\n')
 	{
 		if (line[i] != ' ')
 			return (0);
 		++i;
 	}
-	free(line);
+	if (*line)
+		free(line);
 	return (1);
 }
 

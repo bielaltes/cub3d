@@ -6,7 +6,7 @@
 #    By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/07 02:03:45 by jareste-         ###   ########.fr        #
+#    Updated: 2023/09/07 05:10:43 by jareste-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ endif
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror -fsanitize=address
 LIBC = ar -rcs
 CC = clang
 # =============
@@ -66,8 +66,6 @@ SRC_L	=	main.c					\
 			RENDER/render.c			\
 			RENDER/texture.c		\
 			RENDER/pixel.c			\
-			MAP/prov_main.c
-
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
 
