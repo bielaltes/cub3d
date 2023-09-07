@@ -6,13 +6,13 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:01:18 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 23:56:56 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:07:43 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int save_texture(t_mlx *mlx, t_image *img, char *path)
+int	save_texture(t_mlx *mlx, t_image *img, char *path)
 {
 	path[ft_strlen(path) -1] = '\0';
 	img->img = mlx_xpm_file_to_image(mlx->mlx,
@@ -27,7 +27,8 @@ int save_texture(t_mlx *mlx, t_image *img, char *path)
 		exit_parse("Cound not get img address");
 	return (SUCCESS);
 }
-int charge_textures(t_mlx *mlx, t_map *map)
+
+int	charge_textures(t_mlx *mlx, t_map *map)
 {
 	save_texture(mlx, &mlx->textures[0], map->tex_n);
 	save_texture(mlx, &mlx->textures[1], map->tex_s);
@@ -36,7 +37,7 @@ int charge_textures(t_mlx *mlx, t_map *map)
 	return (SUCCESS);
 }
 
-int init_keys(t_game *game)
+int	init_keys(t_game *game)
 {
 	game->key.w = 0;
 	game->key.a = 0;
@@ -47,7 +48,7 @@ int init_keys(t_game *game)
 	return (SUCCESS);
 }
 
-int init(t_game *game)
+int	init(t_game *game)
 {
 	game->mlx.mlx = mlx_init();
 	if (!game->mlx.mlx)
@@ -65,42 +66,5 @@ int init(t_game *game)
 		exit_parse("Cound not get img address");
 	charge_textures(&game->mlx, &game->map);
 	init_keys(game);
-	return (SUCCESS);
-}
-
-int setup_pl(t_player *player, char coord, int col, int row)
-{
-	player->locx = row + 0.5;
-	player->locy = col + 0.5;
-	if (coord == 'N')
-	{
-		player->dirx = -1;
-		player->diry = 0;
-		player->planex = 0;
-		player->planey = 0.66;
-	}
-	else if (coord == 'S')
-	{
-		player->dirx = 1;
-		player->diry = 0;
-		player->planex = 0;
-		player->planey = -0.66;
-	}
-	else if (coord == 'E')
-	{
-		player->dirx = 0;
-		player->diry = -1;
-		player->planex = -0.66;
-		player->planey = 0;
-	}
-	else if (coord == 'W')
-	{
-		player->dirx = 0;
-		player->diry = 1;
-		player->planex = 0.66;
-		player->planey = 0;
-	}
-	else
-		return (exit_parse("Error assigning the orentation"));
 	return (SUCCESS);
 }

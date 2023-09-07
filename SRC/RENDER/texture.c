@@ -6,7 +6,7 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:17:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 00:13:06 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 01:10:48 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	choose_text(t_ray *r)
 {
-	int t;
-	
+	int	t;
+
 	if (r->side == 0 && r->raydirx < 0)
 		t = 0;
 	else if (r->side == 0 && r->raydirx > 0)
@@ -29,11 +29,11 @@ int	choose_text(t_ray *r)
 
 int	compute_xcoord(t_player *pl, t_ray *r)
 {
-	float xcoord;
+	float	xcoord;
 
 	if (r->side == 0)
 		xcoord = pl->locy + r->perpwalldist * r->raydiry;
-	else 
+	else
 		xcoord = pl->locx + r->perpwalldist * r->raydirx;
 	xcoord = xcoord - floor(xcoord);
 	return ((int)(xcoord * 64));
@@ -41,8 +41,8 @@ int	compute_xcoord(t_player *pl, t_ray *r)
 
 float	compute_dist(t_player *pl, t_ray *r)
 {
-	if(r->side == 0) 
+	if (r->side == 0)
 		return ((r->mapx - pl->locx + (1 - r->stepx) / 2) / r->raydirx);
-	else          
-		return((r->mapy - pl->locy + (1 - r->stepy) / 2) / r->raydiry);
+	else
+		return ((r->mapy - pl->locy + (1 - r->stepy) / 2) / r->raydiry);
 }

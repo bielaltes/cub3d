@@ -6,7 +6,7 @@
 #    By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/07 01:08:40 by jareste-         ###   ########.fr        #
+#    Updated: 2023/09/07 02:03:45 by jareste-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,9 @@ SRC_L	=	main.c					\
 			PARSE/map.c				\
 			PARSE/textures.c		\
 			PARSE/utils.c			\
+			PARSE/utils2.c			\
 			PARSE/init.c			\
+			PARSE/aux_setup_pl.c	\
 			HOOKS/hooks.c			\
 			HOOKS/wasd_hooks.c		\
 			HOOKS/rot_hooks.c		\

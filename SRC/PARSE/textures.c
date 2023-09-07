@@ -6,15 +6,15 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:07:32 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/07 00:11:00 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 01:46:22 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int read_texture(t_game * game, char *line)
+int	read_texture(t_game *game, char *line)
 {
-	char **split;
+	char	**split;
 
 	split = ft_split(line, " ");
 	if (!split)
