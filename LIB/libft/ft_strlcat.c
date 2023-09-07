@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 16:59:04 by baltes-g          #+#    #+#             */
-/*   Updated: 2022/07/14 19:15:28 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:20:53 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ size_t	ft_strlcat(char *dest, char *src, size_t size)
 
 	lendest = 0;
 	while (dest[lendest] != '\0')
-	{	
+	{
 		++lendest;
 	}
 	lensrc = 0;

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   colour.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 19:06:50 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 19:12:26 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:08:10 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int read_colour(t_game * game, char *line)
+int	read_colour(t_game *game, char *line)
 {
-	char **split;
+	char	**split;
 
 	split = ft_split(line, " ,");
 	if (!split)

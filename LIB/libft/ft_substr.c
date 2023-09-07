@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:21:53 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 12:41:32 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:21:05 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	count_max(char const *s, unsigned int start, size_t len)
 		++s;
 	}
 	return (n);
-}	
+}
 
 char	*ft_substr(char *s, unsigned int start, size_t len, int rm)
 {

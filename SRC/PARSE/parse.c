@@ -3,16 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:53:45 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 19:12:28 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/07 05:38:44 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int read_textures_colours(int fd, t_game *game)
+static void	aux_read_tex_colours(t_game *game, char *line, int *count)
+{
+	if (ft_strlen_n(line) == 2)
+	{
+		read_texture(game, line);
+		++*count;
+	}
+	else if (ft_strlen_n(line) == 1)
+	{
+		read_colour(game, line);
+		++*count;
+	}
+	else
+	{
+		exit_parse("Syntax error in map file");
+	}
+}
+
+int	read_textures_colours(int fd, t_game *game)
 {
 	char	*line;
 	int		count;
@@ -24,22 +42,7 @@ int read_textures_colours(int fd, t_game *game)
 		while (*line == ' ')
 			++line;
 		if (*line != '\n' && line && !is_map(line))
-		{
-			if (ft_strlen_n(line) == 2)
-			{
-				read_texture(game, line);
-				++count;
-			}
-			else if (ft_strlen_n(line) == 1)
-			{
-				read_colour(game, line);
-				++count;
-			}
-			else
-			{
-				exit_parse("Syntax error in map file");
-			}
-		}
+			aux_read_tex_colours(game, line, &count);
 		free(line);
 		if (count < 6)
 			line = get_next_line(fd);
@@ -49,13 +52,14 @@ int read_textures_colours(int fd, t_game *game)
 	return (SUCCESS);
 }
 
-int parse(int argc, char **argv, t_game *game)
+int	parse(int argc, char **argv, t_game *game)
 {
-	int     fd;
+	int	fd;
 
 	if (argc != 2)
 		exit_parse("Invalid number of arguments");
-	if (ft_strlen(argv[1]) < 5 || ft_strncmp(argv[1] + ft_strlen(argv[1]) - 4, ".cub", 0xFF))
+	if (ft_strlen(argv[1]) < 5 || ft_strncmp(argv[1] \
+	+ ft_strlen(argv[1]) - 4, ".cub", 0xFF))
 		exit_parse("File extension must be '.cub'");
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)

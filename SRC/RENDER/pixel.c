@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:21:05 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/05 17:43:17 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/07 01:30:42 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	my_pixel_put(t_image *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int		my_pixel_get(t_image *img, int x, int y)
+int	my_pixel_get(t_image *img, int x, int y)
 {
 	char	*pixel;
 
@@ -30,7 +30,7 @@ int		my_pixel_get(t_image *img, int x, int y)
 	return (*(int *)pixel);
 }
 
-int c2int(t_color *c)
+int	c2int(t_color *c)
 {
 	return (c->r << 16 | c->g << 8 | c->b);
 }

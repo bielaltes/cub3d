@@ -6,7 +6,7 @@
 #    By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/07 00:35:07 by jsebasti          #+#    #+#              #
-#    Updated: 2023/09/06 22:44:02 by jareste-         ###   ########.fr        #
+#    Updated: 2023/09/07 13:37:30 by jareste-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ endif
 # -------------
 RM = rm -rf
 MP = mkdir -p
-CFLAGS = -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS = -g -Wall -Wextra -Werror
 LIBC = ar -rcs
 CC = clang
 # =============
@@ -56,14 +56,17 @@ SRC_L	=	main.c					\
 			PARSE/map.c				\
 			PARSE/textures.c		\
 			PARSE/utils.c			\
+			PARSE/utils2.c			\
 			PARSE/init.c			\
+			PARSE/aux_setup_pl.c	\
 			HOOKS/hooks.c			\
+			HOOKS/wasd_hooks.c		\
+			HOOKS/rot_hooks.c		\
 			RENDER/draw_vertical.c	\
 			RENDER/render.c			\
 			RENDER/texture.c		\
 			RENDER/pixel.c			\
-			MAP/prov_main.c
-
+			RENDER/minmap.c			\
 
 SRC = $(addprefix $(SRC_DIR), $(SRC_L))
 

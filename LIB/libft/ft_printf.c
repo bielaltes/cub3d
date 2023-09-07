@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: baltes-g <baltes-g@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 15:14:22 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/06/26 14:49:10 by baltes-g         ###   ########.fr       */
+/*   Updated: 2023/09/07 02:20:42 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ static int	ft_printvar(char const *str, va_list args, int *i, int *error)
 		*error = 1;
 		write(1, "incomplete format specifier\n", 28);
 		return (0);
-	}	
+	}
 }
 
 int	ft_printf(char const *str, ...)

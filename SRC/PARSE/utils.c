@@ -6,14 +6,13 @@
 /*   By: jareste- <jareste-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 12:29:20 by baltes-g          #+#    #+#             */
-/*   Updated: 2023/09/06 22:35:48 by jareste-         ###   ########.fr       */
+/*   Updated: 2023/09/07 01:45:46 by jareste-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-int exit_parse(char *str)
+int	exit_parse(char *str)
 {
 	write(2, "Error\n", 6);
 	write(2, str, ft_strlen(str));
@@ -22,7 +21,7 @@ int exit_parse(char *str)
 	return (FAILURE);
 }
 
-void free_split(char **split)
+void	free_split(char **split)
 {
 	int	i;
 
@@ -81,38 +80,4 @@ int	ft_atoi_cub(char *str, int free_args)
 	if (free_args == FIRST)
 		free(aux);
 	return (sum);
-}
-
-char	*create_string(t_game *game, char c, int size)
-{
-	char	*str;
-	int		i;
-
-	i = 0;
-	str = malloc(size);
-	if (!str)
-		clean_exit(game);
-	while (i < size -1)
-	{
-		str[i] = c;
-		++i;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-void	dfs(t_map *m, char *visited, int i, int j, int *found)
-{
-	if (i < 0 || j < 0 || i >= m->n_rows || j > m->n_cols || m->map[i][j] == '-')
-	{
-		*found = 1;
-		return ;
-	}
-	if (visited[i * m->n_cols + j] == '1' || m->map[i][j] == '1')
-		return;
-	visited[i * m->n_cols + j] = '1';
-	dfs(m, visited, i + 1, j, found);
-	dfs(m, visited, i, j +1, found);
-	dfs(m, visited, i, j + 1, found);
-	dfs(m, visited, i, j - 1, found);
 }
